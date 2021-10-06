@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { connect } from 'react-redux';
+import Grid from './Grid';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const Trailer = ({ data }) => (
+  <a href={ data.url }
+     target="_blank"
+     rel="noopener noreferrer">
+    trailer...
+  </a>
+);
 
-export default App;
+const config = [
+  {
+    title: 'id',
+    field: 'imdbID'
+  },
+  {
+    title: 'title',
+    field: 'Title'
+  },
+  {
+    title: 'rating',
+    field: 'imdbRating',
+  },
+//  {
+//    title: 'trailer',
+//    field: 'Trailer',
+//    component: Trailer
+//  }
+];
+
+const App = ({ data }) => (
+  <div>
+    <Grid config={ config } data={ data } />
+  </div>
+);
+
+const mapStateToProps = state => ({
+  data: state.movies
+});
+
+export default connect(mapStateToProps)(App);
